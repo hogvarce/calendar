@@ -26,3 +26,8 @@
     background: #ff021d;
     color: white;
 }
+
+.calendar table td.day_unactive {
+    cursor: default;
+    background: gray;
+}
