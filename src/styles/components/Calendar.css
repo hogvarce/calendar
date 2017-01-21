@@ -1,0 +1,28 @@
+.calendar table {
+    width: 100%;
+}
+
+.calendar table th {
+    background: #2b6eff;
+    color: white;
+    text-align: center;
+    border: 1px solid #2b6eff;
+}
+
+.calendar table td {
+    border: 1px solid gray;
+}
+
+.calendar table td.day {
+    cursor: pointer;
+}
+
+.calendar table td.day_curr {
+    background: #6cb1ff;
+    color: white;
+}
+
+.calendar table td.day_active {
+    background: #ff021d;
+    color: white;
+}
