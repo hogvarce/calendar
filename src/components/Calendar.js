@@ -7,17 +7,17 @@ class Calendar extends React.Component {
         let {date, year, month, selectDay = 0} = this.props;
         let matrix = DateExtend.getMatrix(year, month);
         return (
-            <div className="calendar col-sm-6">
+            <div className="calendar col-xs-12 col-sm-6">
                 <table>
                     <thead>
                     <tr>
+                        <th>вс</th>
                         <th>пн</th>
                         <th>вт</th>
                         <th>ср</th>
                         <th>чт</th>
                         <th>пт</th>
                         <th>сб</th>
-                        <th>вс</th>
                     </tr>
                     </thead>
                     <tbody>

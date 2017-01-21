@@ -17,6 +17,30 @@ class CalendarContainer extends React.Component {
         };
     }
 
+    onNextMounth = () => {
+        this.currentDate = (this.state.month < 11) ? new Date(this.state.year, this.state.month + 1) : new Date(this.state.year + 1, 0);
+        this.setState({
+            date: this.currentDate.getDate(),
+            month: this.currentDate.getMonth(),
+            year: this.currentDate.getFullYear(),
+            notes: [],
+            activeNote: "",
+            selectDay: -1
+        });
+    };
+
+    onPrevMounth = () => {
+        this.currentDate = (this.state.month > 0) ? new Date(this.state.year, this.state.month - 1) : new Date(this.state.year - 1, 11);
+        this.setState({
+            date: this.currentDate.getDate(),
+            month: this.currentDate.getMonth(),
+            year: this.currentDate.getFullYear(),
+            notes: [],
+            activeNote: "",
+            selectDay: -1
+        });
+    };
+
     onAppendNote = () => {
         this.setState({
             notes: [...this.state.notes.map((item, i) => {
@@ -43,13 +67,9 @@ class CalendarContainer extends React.Component {
 
     render() {
         let {date, month, year, activeNote, notes, selectDay} = this.state;
-        let daysCurrentMount = DateExtend.daysInMonth(this.state.month, this.state.year);
+        let daysCurrentMount = DateExtend.daysInMonth(this.state.month + 1, this.state.year);
         for (let i = 1; i <= daysCurrentMount; i++) {
-            if (i < date) {
-                this.state.notes.push("Планируете путешествие в прошлое?");
-            } else {
-                this.state.notes.push("Вы ничего не запланировали на этот день.");
-            }
+            this.state.notes.push("Вы ничего не запланировали на этот день.");
         }
         return (
             <div className="container">
@@ -63,6 +83,8 @@ class CalendarContainer extends React.Component {
                                   onSelectDay={this.onSelectDay}/>
                         <Notes activeNote={activeNote} onChangeNote={this.onChangeNote}
                                onAppendNote={this.onAppendNote}/>
+                        <button onClick={this.onPrevMounth}>предыдущий месяц</button>
+                        <button onClick={this.onNextMounth}>следующий месяц</button>
                     </div>
                 </div>
             </div>
