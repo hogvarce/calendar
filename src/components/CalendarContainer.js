@@ -12,7 +12,8 @@ class CalendarContainer extends React.Component {
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
             notes: [],
-            activeNote: ""
+            activeNote: "",
+            selectDay: -1
         };
     }
 

@@ -18,10 +18,9 @@ class DateExtend extends Date {
         return weekday[inx];
     }
 
-    static getDay(date) {
-        let day = date.getDay();
-        if (day == 0) day = 7;
-        return day - 1;
+    static getFirstDayMouth(y, m) {
+        let day = new Date(y, m, 1);
+        return day.getDay();
     }
 
     static getMatrix(y, m) {
