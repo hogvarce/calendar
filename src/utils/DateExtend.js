@@ -36,7 +36,8 @@ class DateExtend extends Date {
         let numDays = new Date(y, m + 1, 0).getDate();
         let dayNum;
         let firstDay = DateExtend.getFirstDayMouth(y, m);
-        let lastDate = DateExtend.getLastDateMouth(y-1, (m <= 0) ? 11: m - 1);
+        let lastDate = DateExtend.getLastDateMouth(y - 1, (m <= 0) ? 11 : m - 1);
+        let previosDayMounth = 0;
 
         _.each(rows, function (row) {
             let week = [];
@@ -45,7 +46,8 @@ class DateExtend extends Date {
                 if (row == 0) {
                     dayNum = col - date.getDay() + 1;
                     if (dayNum - 1 < firstDay) {
-                        week.push(0);
+                        previosDayMounth++;
+                        week.push("");
                     } else {
                         week.push(col < date.getDay() ? -(new Date(y, m, -(date.getDay() - 1 - col)).getDate() - 6) : dayNum - 6);
                     }
@@ -59,6 +61,12 @@ class DateExtend extends Date {
 
         });
 
+        for (let i = 0; i < previosDayMounth; i++) {
+            matrix[0].shift();
+        }
+        for (let i = 0; i < previosDayMounth; i++) {
+            matrix[0].unshift(-(lastDate - i));
+        }
         return matrix;
     }
 }

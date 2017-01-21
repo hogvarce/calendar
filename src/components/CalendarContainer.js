@@ -20,7 +20,7 @@ class CalendarContainer extends React.Component {
     onAppendNote = () => {
         this.setState({
             notes: [...this.state.notes.map((item, i) => {
-                if (i == this.state.selectDay) {
+                if (i === this.state.selectDay) {
                     item = this.state.activeNote;
                 }
                 return item;
@@ -45,17 +45,22 @@ class CalendarContainer extends React.Component {
         let {date, month, year, activeNote, notes, selectDay} = this.state;
         let daysCurrentMount = DateExtend.daysInMonth(this.state.month, this.state.year);
         for (let i = 1; i <= daysCurrentMount; i++) {
-            this.state.notes.push("Вы ничего не запланировали на этот день");
+            if (i < date) {
+                this.state.notes.push("Планируете путешествие в прошлое?");
+            } else {
+                this.state.notes.push("Вы ничего не запланировали на этот день.");
+            }
         }
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12">
-                        Сегодня: {date}.{month+1}.{year}
+                        Сегодня: {date}.{month + 1}.{year}
                         <br />
                         Дней в этом месяце: {daysCurrentMount}
                         <br className="clearfix"/>
-                        <Calendar selectDay={selectDay} days={notes} date={date} month={month} year={year} onSelectDay={this.onSelectDay}/>
+                        <Calendar selectDay={selectDay} days={notes} date={date} month={month} year={year}
+                                  onSelectDay={this.onSelectDay}/>
                         <Notes activeNote={activeNote} onChangeNote={this.onChangeNote}
                                onAppendNote={this.onAppendNote}/>
                     </div>
