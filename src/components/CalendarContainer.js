@@ -92,7 +92,7 @@ class CalendarContainer extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12">
-                        Сегодня: {new Date().getDate()}.{new Date().getMonth() + 1}.{new Date().getYear()}
+                        Сегодня: {new Date().getDate()}.{new Date().getMonth() + 1}.{new Date().getFullYear()}
                         <br />
                         Дней в этом месяце: {daysCurrentMount}
                         <br className="clearfix"/>
