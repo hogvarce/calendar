@@ -20,7 +20,7 @@ class CalendarContainer extends React.Component {
     onNextMounth = () => {
         this.currentDate = (this.state.month < 11) ? new Date(this.state.year, this.state.month + 1) : new Date(this.state.year + 1, 0);
         this.setState({
-            date: this.currentDate.getDate(),
+            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate(): -1,
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
             notes: [],
@@ -32,7 +32,7 @@ class CalendarContainer extends React.Component {
     onPrevMounth = () => {
         this.currentDate = (this.state.month > 0) ? new Date(this.state.year, this.state.month - 1) : new Date(this.state.year - 1, 11);
         this.setState({
-            date: this.currentDate.getDate(),
+            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate(): -1,
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
             notes: [],
@@ -75,7 +75,7 @@ class CalendarContainer extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12">
-                        Сегодня: {date}.{month + 1}.{year}
+                        Сегодня: {new Date().getDate()}.{new Date().getMonth() + 1}.{new Date().getYear()}
                         <br />
                         Дней в этом месяце: {daysCurrentMount}
                         <br className="clearfix"/>
