@@ -11,44 +11,61 @@ class CalendarContainer extends React.Component {
             date: this.currentDate.getDate(),
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
-            notes: [],
             activeNote: "",
             selectDay: -1
         };
+        this.state.notes = this.getNotesFromStorage();
     }
+
+    getNotesFromStorage = () => {
+        let notes = localStorage.getItem("notes" + this.state.year + this.state.month);
+        if (notes) {
+            return notes.split(',');
+        } else {
+            return []
+        }
+    };
 
     onNextMounth = () => {
         this.currentDate = (this.state.month < 11) ? new Date(this.state.year, this.state.month + 1) : new Date(this.state.year + 1, 0);
         this.setState({
-            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate(): -1,
+            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate() : -1,
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
-            notes: [],
             activeNote: "",
             selectDay: -1
+        }, () => {
+            this.setState({
+                notes: this.getNotesFromStorage()
+            })
         });
     };
 
     onPrevMounth = () => {
         this.currentDate = (this.state.month > 0) ? new Date(this.state.year, this.state.month - 1) : new Date(this.state.year - 1, 11);
         this.setState({
-            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate(): -1,
+            date: (this.currentDate.getMonth() === new Date().getMonth()) ? new Date().getDate() : -1,
             month: this.currentDate.getMonth(),
             year: this.currentDate.getFullYear(),
-            notes: [],
             activeNote: "",
             selectDay: -1
+        }, () => {
+            this.setState({
+                notes: this.getNotesFromStorage()
+            })
         });
     };
 
     onAppendNote = () => {
+         let updatedNotes = [...this.state.notes.map((item, i) => {
+             if (i === this.state.selectDay) {
+                 item = this.state.activeNote;
+             }
+             return item;
+         })];
+        localStorage.setItem("notes" + this.state.year + this.state.month, updatedNotes);
         this.setState({
-            notes: [...this.state.notes.map((item, i) => {
-                if (i === this.state.selectDay) {
-                    item = this.state.activeNote;
-                }
-                return item;
-            })]
+            notes: updatedNotes
         });
     };
 
