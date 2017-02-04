@@ -11,13 +11,13 @@ class Calendar extends React.Component {
                 <table>
                     <thead>
                     <tr>
-                        <th>вс</th>
                         <th>пн</th>
                         <th>вт</th>
                         <th>ср</th>
                         <th>чт</th>
                         <th>пт</th>
                         <th>сб</th>
+                        <th>вс</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@ class Calendar extends React.Component {
                         return (
                             <tr key={w}>
                                 { week.map((day, i) => {
-                                    if (day === 0)  return <td className="day day_unactive" key={i}>{""}</td>;
+                                    if (day === 0)  return <td className="day day_unactive" key={i}>{(new Date(year, month, 0).getDate())}</td>;
                                     if (day < 0) return <td className="day day_unactive" key={i}>{-(day)}</td>;
                                     return <td
                                         className={(selectDay + 1 === day) ? "day day_active" : (day === date) ? "day day_curr" : "day"}
