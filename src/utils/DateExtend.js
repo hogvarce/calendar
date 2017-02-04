@@ -18,10 +18,14 @@ class DateExtend extends Date {
         return weekday[inx];
     }
 
-    static getDay(date) {
-        let day = date.getDay();
-        if (day == 0) day = 7;
-        return day - 1;
+    static getFirstDayMouth(y, m) {
+        let day = new Date(y, m, 1);
+        return 7 - day.getDay();
+    }
+
+    static getLastDateMouth(y, m) {
+        let lastDay = new Date(y, m + 1, 0);
+        return lastDay.getDate();
     }
 
     static getMatrix(y, m) {
@@ -37,8 +41,8 @@ class DateExtend extends Date {
 
             _.each(cols, function (col) {
                 if (row == 0) {
-                    dayNum = col - date.getDay() + 1;
-                    week.push(col < date.getDay() ? -(new Date(y, m, -(date.getDay() - 1 - col)).getDate()) : dayNum);
+                    dayNum = col - getLocalDay(date) + 2;
+                    week.push(col < (getLocalDay(date) - 2) ? -(new Date(y, m, -(getLocalDay(date) - 2 - col)).getDate()) : dayNum);
                 } else {
                     dayNum = _.last(matrix)[6] + col + 1;
                     week.push(dayNum <= numDays ? dayNum : -(dayNum - numDays));
@@ -54,3 +58,14 @@ class DateExtend extends Date {
 }
 
 export default DateExtend;
+
+function getLocalDay(date) {
+
+    var day = date.getDay();
+
+    if (day == 0) { // день 0 становится 7
+        day = 7;
+    }
+
+    return day;
+}
